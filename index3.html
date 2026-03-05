@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movistar Colombia – Estudio de Caso Administrativo</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue:       #019DF4;
+    --blue-dark:  #0077C8;
+    --blue-deep:  #00437A;
+    --green:      #5CB615;
+    --green-dark: #3D8A0B;
+    --dark:       #070C14;
+    --dark2:      #0D1520;
+    --dark3:      #111E2E;
+    --dark4:      #162538;
+    --white:      #EEF4FA;
+    --white2:     #8AACC8;
+    --accent:     #00D4FF;
+    --warn:       #FFB830;
+    --red:        #FF4D6A;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--dark);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+   /* --- NUEVO: ESTILOS PARA AUTORES --- */
+  .hero-authors {
+    position: absolute;
+    top: 80px;
+    right: 80px;
+    text-align: right;
+    z-index: 20;
+    animation: fadeIn .6s .6s both;
+  }
+  .author-name {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    color: var(--white2);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .author-label {
+    font-size: 9px;
+    color: var(--blue);
+    opacity: 0.8;
+  }
+
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    background: var(--dark);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 55% 70% at 75% 40%, rgba(1,157,244,.20) 0%, transparent 65%),
+      radial-gradient(ellipse 30% 40% at 80% 80%, rgba(92,182,21,.10) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  /* grid texture */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(1,157,244,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(1,157,244,.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px;
+    position: relative;
+    z-index: 2;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(1,157,244,.12);
+    border: 1px solid rgba(1,157,244,.35);
+    color: var(--blue);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    border-radius: 2px;
+    margin-bottom: 28px;
+    width: fit-content;
+    animation: fadeIn .6s .1s both;
+  }
+  .badge::before { content: '◉'; font-size: 9px; }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: .2em;
+    color: var(--white2);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    animation: fadeIn .6s .2s both;
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 7vw, 100px);
+    line-height: .9;
+    margin-bottom: 10px;
+    animation: fadeIn .6s .3s both;
+  }
+  .hero-title .white { color: var(--white); }
+  .hero-title .blue  { color: var(--blue);  display: block; }
+  .hero-title .green { color: var(--green); display: block; }
+
+  .bic-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(90deg, rgba(92,182,21,.2), rgba(92,182,21,.05));
+    border: 1px solid rgba(92,182,21,.4);
+    color: var(--green);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-top: 14px;
+    width: fit-content;
+    animation: fadeIn .6s .35s both;
+  }
+  .bic-tag::before { content: '★'; }
+
+  .hero-subtitle {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--white2);
+    line-height: 1.65;
+    max-width: 430px;
+    margin: 22px 0 36px;
+    animation: fadeIn .6s .4s both;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    animation: fadeIn .6s .5s both;
+  }
+  .stat { display: flex; flex-direction: column; gap: 4px; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px;
+    color: var(--blue);
+    line-height: 1;
+  }
+  .stat-num.green { color: var(--green); }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .12em;
+    color: var(--white2);
+    text-transform: uppercase;
+  }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    z-index: 2;
+  }
+
+  /* ── INTEGRANTES ── */
+  .hero-authors {
+    position: absolute;
+    top: 28px;
+    right: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    z-index: 10;
+  }
+  .authors-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .16em;
+    color: var(--blue);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    opacity: .75;
+  }
+  .author-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .06em;
+    color: var(--white2);
+    background: rgba(1,157,244,.07);
+    border: 1px solid rgba(1,157,244,.18);
+    padding: 4px 12px;
+    border-radius: 3px;
+    transition: color .2s, border-color .2s;
+  }
+  .author-name:hover {
+    color: var(--blue);
+    border-color: rgba(1,157,244,.5);
+  }
+  .logo-wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .signal-rings {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(1,157,244,.2);
+    animation: pulse-out 3s ease-in-out infinite;
+  }
+  .ring:nth-child(1) { width:120px;height:120px; border-color:rgba(1,157,244,.5); animation-delay:0s; }
+  .ring:nth-child(2) { width:200px;height:200px; animation-delay:.6s; }
+  .ring:nth-child(3) { width:280px;height:280px; animation-delay:1.2s; }
+  @keyframes pulse-out {
+    0%,100% { opacity:.8; }
+    50% { opacity:.3; transform:scale(1.04); }
+  }
+  .logo-m {
+    position: relative;
+    z-index: 2;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 110px;
+    color: var(--white);
+    text-shadow: 0 0 60px rgba(1,157,244,.5);
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+  .logo-m span { color: var(--blue); }
+  .logo-sub {
+    margin-top: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .25em;
+    color: var(--white2);
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .logo-pill {
+    margin-top: 10px;
+    background: var(--blue);
+    color: var(--dark);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    font-weight: 500;
+  }
+
+  /* ── TIMELINE BUILDING IMAGE ── */
+  .tl-building-wrap {
+    position: relative;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 36px 0 48px;
+    border: 1px solid rgba(1,157,244,.25);
+    box-shadow: 0 8px 50px rgba(0,0,0,.5);
+  }
+  .tl-building-img {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+    object-position: center 40%;
+    display: block;
+    filter: brightness(.85) saturate(1.15);
+    transition: transform .7s ease, filter .4s;
+  }
+  .tl-building-wrap:hover .tl-building-img {
+    transform: scale(1.025);
+    filter: brightness(.95) saturate(1.2);
+  }
+  .tl-building-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(7,12,20,.15) 0%, transparent 40%, rgba(7,12,20,.75) 100%);
+    pointer-events: none;
+  }
+  .tl-building-caption {
+    position: absolute;
+    bottom: 20px;
+    left: 24px;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .tl-bc-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .14em;
+    color: var(--white);
+    background: rgba(7,12,20,.65);
+    border: 1px solid rgba(1,157,244,.3);
+    padding: 6px 16px;
+    border-radius: 3px;
+    backdrop-filter: blur(8px);
+  }
+  .tl-bc-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .12em;
+    color: var(--blue);
+    background: rgba(1,157,244,.12);
+    border: 1px solid rgba(1,157,244,.3);
+    padding: 6px 14px;
+    border-radius: 3px;
+    backdrop-filter: blur(8px);
+  }
+
+  .hero-divider {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--blue), var(--green), transparent);
+  }
+
+  @keyframes fadeIn {
+    from { opacity:0; transform:translateY(24px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  /* ── LAYOUT ── */
+  .section {
+    padding: 100px 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--blue);
+    letter-spacing: .2em;
+  }
+  .section-line { flex:1; height:1px; background:rgba(255,255,255,.08); max-width:60px; }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(44px, 5vw, 72px);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .section-title em  { color: var(--blue);  font-style: normal; }
+  .section-title em2 { color: var(--green); font-style: normal; }
+  .section-intro {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--white2);
+    line-height: 1.7;
+    max-width: 600px;
+    margin-bottom: 56px;
+  }
+  .bg-dark2 { background: var(--dark2); }
+  .sep {
+    display: flex; align-items: center; gap: 20px;
+    padding: 0 60px; max-width:1400px; margin:0 auto;
+  }
+  .sep-line { flex:1; height:1px; background:rgba(255,255,255,.06); }
+  .sep-text {
+    font-family:'DM Mono',monospace; font-size:10px;
+    color:rgba(255,255,255,.2); letter-spacing:.2em; text-transform:uppercase;
+  }
+
+  /* ── PART I: DIAGNOSTIC ── */
+  .diag-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 2px;
+  }
+  .diag-card {
+    background: var(--dark3);
+    padding: 34px 30px;
+    position: relative;
+    overflow: hidden;
+    transition: background .3s;
+  }
+  .diag-card:hover { background: var(--dark4); }
+  .diag-card::after {
+    content: '';
+    position: absolute;
+    top:0; left:0; right:0; height:3px;
+    background: linear-gradient(90deg, var(--blue), var(--green));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .4s;
+  }
+  .diag-card:hover::after { transform: scaleX(1); }
+  .diag-card.featured {
+    background: linear-gradient(135deg, rgba(1,157,244,.1), rgba(1,157,244,.03));
+    border: 1px solid rgba(1,157,244,.2);
+  }
+  .diag-card.featured::after { transform: scaleX(1); }
+  .diag-card.wide { grid-column: span 3; }
+  .diag-card.half { grid-column: span 2; }
+  .d-icon { font-size:28px; margin-bottom:14px; display:block; }
+  .d-lbl {
+    font-family:'DM Mono',monospace; font-size:10px;
+    letter-spacing:.2em; color:var(--blue); text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  .d-val {
+    font-weight:700; font-size:15px; color:var(--white);
+    margin-bottom:12px; line-height:1.4;
+  }
+  .d-txt {
+    font-size:12.5px; font-weight:300; color:var(--white2); line-height:1.7;
+  }
+  .d-txt strong { color:var(--accent); font-weight:600; }
+  .d-txt em { color:var(--green); font-style:normal; font-weight:600; }
+
+  /* argumento clave */
+  .arg-box {
+    background: linear-gradient(135deg, rgba(1,157,244,.12), rgba(92,182,21,.06));
+    border-left: 4px solid var(--blue);
+    padding: 28px 32px;
+    margin-top: 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .arg-box::before {
+    content: '"';
+    position: absolute;
+    top: -20px; right: 20px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 160px;
+    color: rgba(1,157,244,.08);
+    line-height: 1;
+  }
+  .arg-label {
+    font-family:'DM Mono',monospace; font-size:10px;
+    letter-spacing:.2em; color:var(--blue); text-transform:uppercase;
+    margin-bottom:12px;
+  }
+  .arg-text {
+    font-size:14px; font-style:italic; font-weight:300;
+    color:var(--white); line-height:1.7;
+  }
+  .arg-text strong { color:var(--blue); font-style:normal; font-weight:700; }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    position: relative;
+    padding-left: 40px;
+  }
+  .timeline::before {
+    content:'';
+    position:absolute; left:0; top:0; bottom:0; width:2px;
+    background: linear-gradient(to bottom, var(--blue), rgba(1,157,244,.05));
+  }
+  .tl-item {
+    position:relative; margin-bottom:52px;
+    display:grid; grid-template-columns:120px 1fr; gap:36px; align-items:start;
+  }
+  .tl-item::before {
+    content:'';
+    position:absolute; left:-44px; top:8px;
+    width:10px; height:10px; border-radius:50%;
+    background:var(--blue);
+    box-shadow:0 0 0 4px rgba(1,157,244,.2);
+  }
+  .tl-item.green-dot::before { background:var(--green); box-shadow:0 0 0 4px rgba(92,182,21,.2); }
+  .tl-item.warn-dot::before  { background:var(--warn);  box-shadow:0 0 0 4px rgba(255,184,48,.2); }
+  .tl-year {
+    font-family:'Bebas Neue',sans-serif; font-size:30px; color:var(--blue);
+    line-height:1; text-align:right; padding-top:2px;
+  }
+  .tl-year.green { color:var(--green); }
+  .tl-year.warn  { color:var(--warn); }
+  .tl-tag {
+    display:inline-block; font-family:'DM Mono',monospace;
+    font-size:9px; letter-spacing:.15em; text-transform:uppercase;
+    padding:3px 8px; border-radius:2px; margin-bottom:10px;
+  }
+  .tl-tag.fundacion     { background:rgba(1,157,244,.15);  color:var(--blue); }
+  .tl-tag.crecimiento   { background:rgba(92,182,21,.15);  color:var(--green); }
+  .tl-tag.crisis        { background:rgba(255,77,106,.15); color:var(--red); }
+  .tl-tag.transformacion{ background:rgba(255,184,48,.15); color:var(--warn); }
+  .tl-tag.expansion     { background:rgba(0,212,255,.15);  color:var(--accent); }
+  .tl-heading { font-weight:700; font-size:17px; color:var(--white); margin-bottom:10px; line-height:1.3; }
+  .tl-body { font-size:13.5px; font-weight:300; color:var(--white2); line-height:1.7; }
+  .tl-body strong { color:var(--white); font-weight:600; }
+  .tl-key {
+    margin-top:12px; display:flex; align-items:flex-start; gap:8px;
+    font-size:12px; color:var(--blue); font-weight:600;
+  }
+  .tl-key::before { content:'⬧'; flex-shrink:0; }
+
+  /* ── GERENCIAL ── */
+  .mintz-grid {
+    display:grid; grid-template-columns:1fr 1fr 1fr; gap:2px;
+    margin-bottom:48px;
+  }
+  .mintz-card {
+    padding:38px 30px; background:var(--dark3); position:relative; overflow:hidden;
+  }
+  .m-cat { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.2em; text-transform:uppercase; margin-bottom:8px; }
+  .m-cat.dec  { color:var(--blue); }
+  .m-cat.inf  { color:var(--accent); }
+  .m-cat.int  { color:var(--green); }
+  .m-name { font-family:'Bebas Neue',sans-serif; font-size:34px; line-height:1.05; margin-bottom:16px; color:var(--white); }
+  .m-desc { font-size:13px; font-weight:300; color:var(--white2); line-height:1.7; }
+  .m-desc strong { color:var(--white); font-weight:600; }
+  .m-pill { display:inline-block; padding:4px 10px; border-radius:20px; font-size:11px; font-family:'DM Mono',monospace; margin-top:16px; }
+  .m-pill.dec { background:rgba(1,157,244,.15);  color:var(--blue); }
+  .m-pill.inf { background:rgba(0,212,255,.15);  color:var(--accent); }
+  .m-pill.int { background:rgba(92,182,21,.15);  color:var(--green); }
+
+  .skills-grid {
+    display:grid; grid-template-columns:1fr 1fr 1fr; gap:2px; margin-bottom:48px;
+  }
+  .sk-card {
+    padding:32px; background:var(--dark3);
+    border-bottom:3px solid transparent;
+  }
+  .sk-card:nth-child(1){ border-color:var(--blue); }
+  .sk-card:nth-child(2){ border-color:var(--green); }
+  .sk-card:nth-child(3){ border-color:var(--accent); }
+  .sk-type { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.2em; text-transform:uppercase; margin-bottom:8px; }
+  .sk-type.conceptual{ color:var(--blue); }
+  .sk-type.humana    { color:var(--green); }
+  .sk-type.tecnica   { color:var(--accent); }
+  .sk-title { font-family:'Bebas Neue',sans-serif; font-size:28px; margin-bottom:14px; color:var(--white); }
+  .sk-desc { font-size:13px; font-weight:300; color:var(--white2); line-height:1.7; }
+  .sk-desc strong { color:var(--white); font-weight:600; }
+
+  /* innovaciones */
+  .innov-grid {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:0;
+  }
+  .innov-card {
+    background:var(--dark3); padding:34px 30px;
+    border-left:3px solid var(--blue);
+    transition:background .3s;
+  }
+  .innov-card:hover{ background:var(--dark4); }
+  .innov-card:nth-child(2){ border-color:var(--green); }
+  .innov-card:nth-child(3){ border-color:var(--accent); }
+  .in-icon { font-size:28px; margin-bottom:14px; display:block; }
+  .in-title { font-weight:700; font-size:16px; color:var(--white); margin-bottom:12px; }
+  .in-desc { font-size:13px; font-weight:300; color:var(--white2); line-height:1.7; }
+  .in-desc strong { color:var(--accent); font-weight:600; }
+
+  /* ventaja competitiva */
+  .vc-grid {
+    display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:48px;
+  }
+  .vc-card { padding:38px; background:var(--dark3); position:relative; overflow:hidden; }
+  .vc-card.primary {
+    background:linear-gradient(135deg, rgba(1,157,244,.12), transparent);
+    border:1px solid rgba(1,157,244,.18);
+  }
+  .vc-num {
+    font-family:'Bebas Neue',sans-serif; font-size:80px;
+    color:rgba(1,157,244,.12); position:absolute; top:16px; right:24px; line-height:1;
+  }
+  .vc-title { font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--white); margin-bottom:14px; position:relative; z-index:1; }
+  .vc-desc { font-size:13px; font-weight:300; color:var(--white2); line-height:1.7; position:relative; z-index:1; }
+  .vc-desc strong { color:var(--blue); font-weight:600; }
+
+  /* ── PREGUNTAS ── */
+  .q-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .q-card {
+    padding:32px; border:1px solid rgba(255,255,255,.07);
+    background:rgba(255,255,255,.02); transition:border-color .3s, background .3s;
+  }
+  .q-card:hover { border-color:rgba(1,157,244,.3); background:rgba(1,157,244,.04); }
+  .q-card.full  { grid-column:1/-1; }
+  .q-num { font-family:'DM Mono',monospace; font-size:11px; color:var(--blue); letter-spacing:.15em; margin-bottom:12px; }
+  .q-text { font-size:15px; font-weight:600; color:var(--white); line-height:1.5; margin-bottom:14px; }
+  .q-ans  { font-size:12.5px; font-weight:300; color:var(--white2); line-height:1.7; }
+  .q-ans strong { color:var(--blue); font-weight:600; }
+  .q-ans em     { color:var(--green); font-style:normal; font-weight:600; }
+
+  /* ── REFERENCIAS ── */
+  .refs-section { background:var(--dark2); padding:60px 0; }
+  .ref-list { list-style:none; display:flex; flex-direction:column; gap:12px; }
+  .ref-list li {
+    font-family:'DM Mono',monospace; font-size:11px; color:var(--white2);
+    line-height:1.6; padding-left:20px; position:relative;
+    border-left:2px solid rgba(1,157,244,.3);
+    padding: 8px 0 8px 16px;
+  }
+  .ref-list li a { color:var(--blue); text-decoration:none; }
+  .ref-list li a:hover { text-decoration:underline; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background:var(--dark);
+    border-top:1px solid rgba(1,157,244,.12);
+    padding:40px 60px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:24px; flex-wrap:wrap;
+  }
+  .footer-brand {
+    font-family:'Bebas Neue',sans-serif; font-size:28px;
+    background: linear-gradient(90deg, var(--blue), var(--green));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  }
+  .footer-info {
+    font-family:'DM Mono',monospace; font-size:11px;
+    color:var(--white2); letter-spacing:.08em; line-height:1.8; text-align:center;
+  }
+  .footer-tag {
+    font-family:'DM Mono',monospace; font-size:10px;
+    color:var(--white2); text-align:right; line-height:1.8;
+  }
+
+  /* ── INNOV PHOTO ── */
+  .innov-photo-wrap {
+    position: relative;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    border: 1px solid rgba(1,157,244,.2);
+    box-shadow: 0 8px 40px rgba(0,0,0,.4);
+  }
+  .innov-photo {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+    filter: brightness(.85) saturate(1.1);
+    transition: transform .6s ease;
+  }
+  .innov-photo-wrap:hover .innov-photo { transform: scale(1.02); }
+  .innov-photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(7,12,20,.6) 0%,
+      transparent 50%,
+      rgba(7,12,20,.3) 100%
+    );
+    pointer-events: none;
+  }
+  .innov-photo-caption {
+    position: absolute;
+    bottom: 16px;
+    left: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .12em;
+    color: var(--white);
+    background: rgba(7,12,20,.65);
+    border: 1px solid rgba(1,157,244,.3);
+    padding: 6px 14px;
+    border-radius: 3px;
+    backdrop-filter: blur(8px);
+  }
+
+  @media(max-width:900px){
+    .hero{ grid-template-columns:1fr; }
+    .hero-right{ display:none; }
+    .diag-grid,.mintz-grid,.skills-grid,.innov-grid,.vc-grid,.q-grid{ grid-template-columns:1fr; }
+    .diag-card.wide,.diag-card.half{ grid-column:1; }
+    .section{ padding:60px 24px; }
+    .tl-item{ grid-template-columns:80px 1fr; gap:20px; }
+    .footer{ flex-direction:column; text-align:center; }
+    .footer-tag{ text-align:center; }
+    .sep{ padding:0 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="badge">Estudio de Caso Empresarial · 2026</div>
+    <p class="hero-eyebrow">Administración de Empresas · Universidad Cooperativa de Colombia</p>
+    <h1 class="hero-title">
+      <span class="white">MOVISTAR</span>
+      <span class="blue">COLOMBIA</span>
+    </h1>
+    <span class="bic-tag">Primera telco BIC en Colombia · 2021</span>
+    <p class="hero-subtitle">
+      ¿Cómo la gestión administrativa transforma una empresa en referente nacional?
+      Análisis integral de Colombia Telecomunicaciones S.A. E.S.P. BIC: estructura, evolución estratégica y liderazgo gerencial.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">24,4M</span>
+        <span class="stat-label">Clientes<br>Totales</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">6,67B</span>
+        <span class="stat-label">COP Ingresos<br>2024</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num green">5,9M</span>
+        <span class="stat-label">Hogares<br>con Fibra</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">2003</span>
+        <span class="stat-label">Año de<br>Constitución</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-authors">
+      <span class="authors-label">Integrantes</span>
+      <span class="author-name">Cristian Camilo Hernández Marciales</span>
+      <span class="author-name">Jonathan David Olave Maldonado</span>
+      <span class="author-name">Cesar Andrés Antolínez Silva</span>
+    </div>
+    <div class="logo-wrap">
+      <div class="signal-rings">
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <img src="Movistar-Symbol.ico" alt="Logo Movistar" class="logo-img">
+      </div>
+      <div class="logo-sub">Colombia Telecomunicaciones · S.A. E.S.P. BIC</div>
+      <div class="logo-pill">Antes Telefónica · Hoy Millicom · Siempre Movistar</div>
+    </div>
+  </div>
+  <div class="hero-divider"></div>
+</section>
+
+<!-- ══════ PART I ══════ -->
+<div class="bg-dark2">
+<div class="section">
+  <div class="section-label">
+    <span class="section-num">PARTE I · DIAGNÓSTICO</span>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="section-title">ESTRUCTURA <em>FORMAL</em></h2>
+  <p class="section-intro">Análisis de los elementos jurídico-societarios que definen la capacidad operativa de Colombia Telecomunicaciones, desde su naturaleza como S.A. E.S.P. BIC hasta su gobernanza post-Millicom.</p>
+
+  <div class="diag-grid">
+
+    <div class="diag-card featured">
+      <span class="d-icon">🏛️</span>
+      <div class="d-lbl">01 · Razón Social & Tipo</div>
+      <div class="d-val">Colombia Telecomunicaciones<br>S.A. E.S.P. BIC – Marca: Movistar</div>
+      <p class="d-txt">La triple calidad <strong>S.A. + E.S.P. + BIC</strong> no fue un simple trámite: representa tres capas de obligación estratégica. La S.A. permite acceso a capital bursátil; la E.S.P. impone estándares de servicio universal; la <em>BIC (Ley 1258 mod.)</em> alinea legalmente el propósito empresarial con el bien colectivo. Esta estructura fortalece el atractivo ante inversores ESG globales, como demostró la OPA de Millicom en 2026.</p>
+    </div>
+
+    <div class="diag-card">
+      <span class="d-icon">📊</span>
+      <div class="d-lbl">02 · Número de Socios</div>
+      <div class="d-val">Sociedad Anónima listada<br>Accionista principal: Millicom (~67,5%) desde feb. 2026</div>
+      <p class="d-txt">Históricamente con accionistas mixtos (Estado colombiano 32,5% + Telefónica 67,5%). La <strong>OPA de Millicom en febrero 2026</strong> unificó el control operativo. Fortaleza: diversidad accionarial atrae capital institucional y disciplina de mercado. Limitación: la transición de propietario genera incertidumbre temporal en equipos y estrategia.</p>
+    </div>
+
+    <div class="diag-card">
+      <span class="d-icon">💹</span>
+      <div class="d-lbl">03 · Patrimonio & Ventas</div>
+      <div class="d-val">Ingresos 2024: ~6,67 billones COP<br>EBITDA: 1,54 billones · Inv.: 503 mil M COP</div>
+      <p class="d-txt">Ingresos Q1 2024 de <strong>$1,6 billones COP</strong> con EBITDA trimestral de $382.000 millones (+1,7% interanual). La inversión de 503 mil millones en red y tecnología demuestra reinversión activa. Limitación: presión en márgenes por competencia de Claro y costos de despliegue 5G, exigiendo eficiencia operativa continua.</p>
+    </div>
+
+    <div class="diag-card">
+      <span class="d-icon">⚖️</span>
+      <div class="d-lbl">04 · Responsabilidad Socios</div>
+      <div class="d-val">Limitada al valor de sus acciones<br>Código de Comercio + Ley 1341/2009</div>
+      <p class="d-txt">La responsabilidad limitada en estructura S.A. <strong>protege el patrimonio personal</strong> de accionistas e incentiva inversión de riesgo en infraestructura costosa (5G, fibra). Esto ha facilitado la deuda verde de <em>1,6 billones COP</em> sin comprometer patrimonios individuales, fortaleciendo el financiamiento sostenible como modelo.</p>
+    </div>
+
+    <div class="diag-card">
+      <span class="d-icon">🏢</span>
+      <div class="d-lbl">05 · Órganos de Dirección</div>
+      <div class="d-val">Asamblea de Accionistas<br>Junta Directiva · CEO: Mariano Alonso (feb. 2026)</div>
+      <p class="d-txt">La estructura con <strong>Junta Directiva activa</strong> (a diferencia de una SAS) provee checks & balances sólidos, esenciales en una empresa regulada. La transición del CEO Fabián Hernández a <em>Mariano Alonso</em> (designado por Millicom) marca el inicio de una nueva era estratégica orientada a la integración con Tigo via Unired Colombia SAS.</p>
+    </div>
+
+    <div class="diag-card">
+      <span class="d-icon">🔄</span>
+      <div class="d-lbl">06 · Causales de Disolución</div>
+      <div class="d-val">Código de Comercio estándar<br>+ Ley 1341/2009 (régimen E.S.P.)</div>
+      <p class="d-txt">Las causales aplican el <strong>régimen especial de E.S.P.</strong>, que añade supervisión de la CRC y MinTIC como capas de protección al servicio público. Esto limita cierres arbitrarios y protege la continuidad del servicio para 24,4 millones de usuarios. Fortalece la percepción de <em>permanencia institucional</em>, crítica para contratos empresariales de largo plazo.</p>
+    </div>
+
+    <div class="diag-card">
+      <span class="d-icon">✅</span>
+      <div class="d-lbl">07 · Cumplimiento de Obligaciones</div>
+      <div class="d-val">RUES activo · CRC · MinTIC · Supersociedades<br>Calificación S&P B+ · Reporte BIC anual</div>
+      <p class="d-txt">Cumplimiento integral que va más allá de lo mínimo: reportes BIC anuales públicos, calificación crediticia S&P, participación en ANDI y Andesco, y 6 años consecutivos del <strong>Speedtest Award Ookla</strong> como internet fijo más rápido. Este cumplimiento proactivo construyó la reputación que hizo posible atraer a Millicom y los 1,6 billones en <em>deuda verde</em>.</p>
+    </div>
+
+    <div class="diag-card half">
+      <span class="d-icon">🌱</span>
+      <div class="d-lbl">Calidad BIC – Diferenciador Estratégico</div>
+      <div class="d-val">Primera operadora telco BIC en Colombia · 2021</div>
+      <p class="d-txt">La adopción BIC en 2021 no fue cosmética: modificó legalmente los estatutos para que las decisiones corporativas consideren <strong>impacto ambiental y social</strong> obligatoriamente. Pionera en el sector, este movimiento atrajo capital ESG internacional, diferenció la marca ante reguladores y generó fidelización entre usuarios conscientes. <em>Hoy es caso de estudio de sostenibilidad empresarial.</em></p>
+    </div>
+
+  </div><!-- /diag-grid -->
+
+  <div class="arg-box">
+    <div class="arg-label">⬧ Argumento Clave – Parte I</div>
+    <p class="arg-text">"La estructura <strong>S.A. E.S.P. + BIC</strong> no fue un simple requisito legal: fue la decisión estratégica que permitió captar inversión extranjera, adoptar estándares globales de sostenibilidad y ejecutar la mayor transformación del sector (venta a Millicom + red única). Sin esta formalidad y cumplimiento normativo, la empresa no habría sobrevivido la competencia feroz ni liderado el 5G en Colombia."</p>
+  </div>
+
+</div>
+</div>
+
+<div class="sep"><div class="sep-line"></div><span class="sep-text">Evolución</span><div class="sep-line"></div></div>
+
+<!-- ══════ PART II ══════ -->
+<div class="section">
+  <div class="section-label">
+    <span class="section-num">PARTE II · EVOLUCIÓN ESTRATÉGICA</span>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="section-title">HISTORIA <em2>ESTRATÉGICA</em2></h2>
+  <p class="section-intro">Recorrido por los hitos que transformaron a Colombia Telecomunicaciones de empresa estatal privatizada al referente de conectividad digital sostenible de Colombia, identificando las decisiones administrativas clave en cada etapa.</p>
+
+  <div class="tl-building-wrap">
+    <img src="Movistar1.png" alt="Campus Corporativo Movistar" class="tl-building-img">
+    <div class="tl-building-overlay"></div>
+    <div class="tl-building-caption">
+      <span class="tl-bc-label">📍 Campus Corporativo · Movistar Colombia</span>
+      <span class="tl-bc-tag">Sede Central · Bogotá D.C.</span>
+    </div>
+  </div>
+
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-year">2003</div>
+      <div class="tl-content">
+        <span class="tl-tag fundacion">Fundación</span>
+        <h3 class="tl-heading">Constitución formal como S.A. E.S.P.</h3>
+        <p class="tl-body">El <strong>16 de junio de 2003</strong>, mediante Escritura Pública No. 1331, se constituye Colombia Telecomunicaciones S.A. E.S.P. con domicilio en Bogotá, surgida de la reestructuración de Telecom Colombia. La duración establecida fue hasta el <strong>31 de diciembre de 2092</strong>, señal de una visión institucional de largo plazo desde el día uno.</p>
+        <div class="tl-key">Decisión clave: Elegir estructura S.A. E.S.P. para combinar disciplina de mercado con obligación de servicio universal.</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-year">2004<br>–2006</div>
+      <div class="tl-content">
+        <span class="tl-tag crecimiento">Crecimiento</span>
+        <h3 class="tl-heading">Entrada de Movistar y control de Telefónica</h3>
+        <p class="tl-body">En 2004 Movistar ingresa a Colombia con la adquisición de todas las filiales de <strong>BellSouth en Latinoamérica</strong> (Celumóvil, Celumóvil de la Costa, Cocelco). En 2006, Telefónica S.A. adquiere en subasta pública el 50%+1 acción de ColTel por <strong>853.577 millones de pesos</strong> (269 millones USD), tomando el control mayoritario. Visión global de largo plazo en conectividad móvil colombiana.</p>
+        <div class="tl-key">Decisión clave: Apuesta por el mercado colombiano como hub estratégico en Latinoamérica, pese a infraestructura heredada.</div>
+      </div>
+    </div>
+
+    <div class="tl-item warn-dot">
+      <div class="tl-year warn">2012</div>
+      <div class="tl-content">
+        <span class="tl-tag transformacion">Fusión</span>
+        <h3 class="tl-heading">Fusión fija-móvil: la empresa más grande del sector</h3>
+        <p class="tl-body">Colombia Telecomunicaciones S.A. E.S.P. (antes Telecom) y <strong>Movistar Móviles se unifican</strong>, creando la empresa más grande del sector telecomunicaciones en Colombia. La compañía consolida infraestructura fija, móvil, internet y TV bajo una sola estructura operativa. La red de fibra óptica supera los <strong>5.800 km</strong> de longitud nacional.</p>
+        <div class="tl-key">Decisión clave: Integración operativa que eliminó duplicidades, generó economías de escala y sentó las bases del liderazgo en fibra.</div>
+      </div>
+    </div>
+
+    <div class="tl-item green-dot">
+      <div class="tl-year green">2021</div>
+      <div class="tl-content">
+        <span class="tl-tag crecimiento">Hito BIC</span>
+        <h3 class="tl-heading">Primera telco BIC de Colombia</h3>
+        <p class="tl-body">Adopción de la calidad <strong>Sociedad de Beneficio e Interés Colectivo (BIC)</strong> como primera operadora de telecomunicaciones en Colombia. Esta decisión modifica estatutos para comprometer legalmente cada decisión corporativa con el bienestar social y ambiental. Se consolida como caso de estudio de sostenibilidad empresarial y abre puertas a <em>financiamiento verde internacional</em>.</p>
+        <div class="tl-key">Decisión clave: Convertir la sostenibilidad de promesa de marketing a obligación legal estatutaria — diferenciación estructural sin precedente en el sector.</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-year">2024</div>
+      <div class="tl-content">
+        <span class="tl-tag expansion">Liderazgo Tecnológico</span>
+        <h3 class="tl-heading">Primer 5G comercial y liderazgo en fibra óptica</h3>
+        <p class="tl-body">Movistar se posiciona como el <strong>primer operador en lanzar 5G comercial</strong> en Colombia. Cierra el año con <strong>5,9 millones de hogares pasados con fibra</strong> y 1,5 millones de hogares conectados. Ingresos de 6,67 billones COP, EBITDA de 1,54 billones, e inversión de 503.000 millones en red. <strong>6° año consecutivo</strong> ganando el Speedtest Award Ookla como internet fijo más rápido.</p>
+        <div class="tl-key">Decisión clave: Inversión masiva en tecnología de futuro (5G + fibra) como barrera de entrada frente a competidores, aceptando presión de corto plazo en márgenes.</div>
+      </div>
+    </div>
+
+    <div class="tl-item warn-dot">
+      <div class="tl-year warn">2025<br>–2026</div>
+      <div class="tl-content">
+        <span class="tl-tag transformacion">Transformación</span>
+        <h3 class="tl-heading">Venta a Millicom e integración con Tigo (Unired)</h3>
+        <p class="tl-body">El <strong>30 de diciembre de 2025</strong>, el Gobierno autoriza la venta de su 32,5% a Millicom por ~850.000 millones COP. En <strong>febrero de 2026</strong>, Millicom completa la OPA adquiriendo ~67,5% de Colombia Telecomunicaciones. <em>Mariano Alonso</em> asume como CEO. Se inicia la integración con Tigo a través de <strong>Unired Colombia SAS</strong>, creando la red de acceso móvil compartida más grande del país.</p>
+        <div class="tl-key">Decisión clave: Reestructuración accionarial que asegura sostenibilidad financiera, mayor cobertura nacional y economías de escala frente a Claro.</div>
+      </div>
+    </div>
+
+  </div><!-- /timeline -->
+
+  <div class="arg-box">
+    <div class="arg-label">⬧ Argumento Clave – Parte II</div>
+    <p class="arg-text">"La administración convirtió cada crisis (competencia, regulación, pandemia) en oportunidad. La adopción BIC (2021) y la venta estratégica a Millicom (2026) fueron las decisiones que transformaron una empresa estatal privatizada en referente nacional de <strong>conectividad digital sostenible</strong>. Cada hito revela una gerencia que planifica a décadas, no a trimestres."</p>
+  </div>
+</div>
+
+<div class="sep"><div class="sep-line"></div><span class="sep-text">Gerencia</span><div class="sep-line"></div></div>
+
+<!-- ══════ PART III ══════ -->
+<div class="bg-dark2">
+<div class="section">
+  <div class="section-label">
+    <span class="section-num">PARTE III · ANÁLISIS GERENCIAL</span>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="section-title">TEORÍA EN <em>ACCIÓN</em></h2>
+  <p class="section-intro">Aplicación de los roles de Mintzberg y las habilidades directivas de Torres Hernández (2014) para explicar cómo la gerencia de Colombia Telecomunicaciones generó ventaja competitiva sostenible en un sector regulado y ultra-competitivo.</p>
+
+  <!-- Mintzberg -->
+  <div class="d-lbl" style="margin-bottom:20px;">ROLES GERENCIALES · HENRY MINTZBERG</div>
+  <div class="mintz-grid">
+    <div class="mintz-card">
+      <div class="m-cat dec">● Decisorios</div>
+      <div class="m-name">Emprendedor<br>& Negociador</div>
+      <p class="m-desc">Rol <strong>dominante y más visible</strong>. La gerencia actúa como emprendedora al apostar por 5G (2024) y BIC (2021) antes que la competencia; como negociadora en la compleja transacción Millicom (OPA multibillonaria); y como manejadora de perturbaciones frente a regulación de la CRC y presión de Claro. Estas decisiones convirtieron regulación y competencia en ventaja diferencial, elevando ingresos a 6,67 billones COP.</p>
+      <span class="m-pill dec">Rol dominante</span>
+    </div>
+    <div class="mintz-card">
+      <div class="m-cat inf">● Informacionales</div>
+      <div class="m-name">Portavoz<br>& Monitor</div>
+      <p class="m-desc">La gerencia actúa como <strong>portavoz de transparencia</strong> a través de reportes BIC anuales públicos, calificaciones S&P y comunicados a la SIC y Supersociedades. Como monitora de tendencias globales (5G, fibra, cloud), traduce señales del mercado en inversiones concretas. Sin este flujo informacional, la empresa no habría anticipado ni el 5G ni la oportunidad de la integración con Tigo vía Unired.</p>
+      <span class="m-pill inf">Rol estratégico</span>
+    </div>
+    <div class="mintz-card">
+      <div class="m-cat int">● Interpersonales</div>
+      <div class="m-name">Líder<br>& Enlace</div>
+      <p class="m-desc">Con <strong>5.422 colaboradores directos y 17.000 indirectos</strong>, el liderazgo gerencial construye una cultura de inclusión digital y propósito compartido. El rol de enlace es crítico: articulación con operadores (Tigo–Unired), gobierno (MinTIC), gremios (ANDI, Andesco) y comunidades (Fundación Telefónica Movistar). Per Torres Hernández, este tejido relacional es el que convierte la visión en ejecución sostenida.</p>
+      <span class="m-pill int">Rol habilitador</span>
+    </div>
+  </div>
+
+  <!-- Habilidades -->
+  <div class="d-lbl" style="margin-bottom:20px; margin-top:48px;">HABILIDADES DIRECTIVAS · TORRES HERNÁNDEZ (2014)</div>
+  <div class="skills-grid">
+    <div class="sk-card">
+      <div class="sk-type conceptual">Habilidades Conceptuales</div>
+      <div class="sk-title">Visión &<br>Planificación</div>
+      <p class="sk-desc">Las más <strong>determinantes</strong>. La visión "mundo más humano conectando personas" trasciende la telemetría técnica para articular un propósito social que guía decisiones. La anticipación del 5G y la fibra antes que competidores, y la apuesta BIC como diferenciador legal-estratégico, son evidencia de habilidad conceptual que Torres Hernández define como capacidad de alinear recursos con metas de largo plazo.</p>
+    </div>
+    <div class="sk-card">
+      <div class="sk-type humana">Habilidades Humanas</div>
+      <div class="sk-title">Liderazgo &<br>Cultura</div>
+      <p class="sk-desc">Claves para gestionar una organización de <strong>22.422 personas</strong> (directas + indirectas) en 26 departamentos del país. La construcción de cultura orientada a inclusión digital (programa Mujeres En Red, reconocimiento ODS5), la gestión del cambio durante la transición Millicom y la motivación de equipos en periodos de incertidumbre accionarial demuestran habilidades humanas de alto nivel ejecutivo.</p>
+    </div>
+    <div class="sk-card">
+      <div class="sk-type tecnica">Habilidades Técnicas</div>
+      <div class="sk-title">Infraestructura<br>& Datos</div>
+      <p class="sk-desc">Soporte esencial del modelo: uso de <strong>analítica avanzada</strong> (LUCA, Smart Digits) para optimizar redes y detectar fraude; despliegue técnico de 5.800 km de fibra óptica; gestión del espectro radioeléctrico compartido con Tigo. Per Torres Hernández, las habilidades técnicas potencian a las conceptuales y humanas, siendo el piso sobre el cual se construye la ventaja competitiva en telecomunicaciones.</p>
+    </div>
+  </div>
+
+  <!-- Innovaciones -->
+  <div class="d-lbl" style="margin-bottom:20px; margin-top:48px;">INNOVACIONES ORGANIZACIONALES</div>
+  <div class="innov-photo-wrap">
+    <img src="Movistar2.png" alt="Laboratorio 5G Movistar" class="innov-photo">
+    <div class="innov-photo-overlay"></div>
+    <div class="innov-photo-caption">🔬 Centro de Innovación 5G · Equipo de Ingeniería de Red</div>
+  </div>
+  <div class="innov-grid">
+    <div class="innov-card">
+      <span class="in-icon">📡</span>
+      <div class="in-title">Red Única Compartida Movistar–Tigo (Unired)</div>
+      <p class="in-desc">Innovación estructural sin precedente en Colombia: <strong>compartición de redes de acceso móvil y espectro</strong> aprobada por la SIC. Redefine la competencia sectorial de "infraestructura vs infraestructura" a "servicios vs servicios", reduciendo costos de capital, acelerando cobertura y generando <strong>eficiencias que ningún competidor individual puede replicar</strong>. Un nuevo modelo de industria.</p>
+    </div>
+    <div class="innov-card">
+      <span class="in-icon">🌿</span>
+      <div class="in-title">Modelo BIC y Deuda Verde</div>
+      <p class="in-desc">Primera telco colombiana en emitir <strong>1,6 billones COP en deuda verde</strong>, alineando financiamiento con sostenibilidad. La calidad BIC transformó la gobernanza corporativa: cada decisión estratégica debe evaluar impacto social y ambiental. <strong>Finalistas globales en UNIDO ONE World Sustainability Awards 2025</strong>. Innovación organizacional que convirtió ESG de costo en ventaja competitiva y fuente de capital diferencial.</p>
+    </div>
+    <div class="innov-card">
+      <span class="in-icon">💡</span>
+      <div class="in-title">Servicios Digitales Empresariales (B2B)</div>
+      <p class="in-desc">Evolución del modelo de negocio de "venta de minutos" a <strong>plataforma de transformación digital</strong>: Cloud UCaaS, IoT, Big Data (LUCA), ciberseguridad, Smart Digits. Con <strong>63.000+ soluciones digitales</strong> instaladas en corporaciones, pymes y administraciones, diversifica ingresos y reduce dependencia del negocio tradicional de voz, creando un motor de crecimiento resiliente ante caídas en telefonía.</p>
+    </div>
+  </div>
+
+  <!-- Ventaja competitiva -->
+  <div class="d-lbl" style="margin-bottom:20px; margin-top:48px;">GENERACIÓN DE VENTAJA COMPETITIVA</div>
+  <div class="vc-grid">
+    <div class="vc-card primary">
+      <div class="vc-num">01</div>
+      <div class="vc-title">Liderazgo Tecnológico Verificable</div>
+      <p class="vc-desc"><strong>6 años consecutivos ganando Speedtest Award Ookla</strong> y primer 5G comercial: ventajas que no se fabrican con marketing, sino con inversión real. Esta credibilidad técnica construye barreras de entrada, justifica precios premium y atrae clientes empresariales de alto valor, generando un ciclo virtuoso de inversión → reputación → ingresos.</p>
+    </div>
+    <div class="vc-card">
+      <div class="vc-num">02</div>
+      <div class="vc-title">Escala de Red + Unired</div>
+      <p class="vc-desc">La red compartida con Tigo crea una <strong>cobertura sin precedente</strong> que Claro no puede igualar en solitario. La escala genera costos unitarios menores en mantenimiento, expansión y modernización. Per Mintzberg, fue una decisión de asignación estratégica de recursos que transforma un activo compartido en ventaja competitiva colectiva.</p>
+    </div>
+    <div class="vc-card">
+      <div class="vc-num">03</div>
+      <div class="vc-title">Diferenciación por Propósito BIC</div>
+      <p class="vc-desc">La identidad BIC atrae <strong>capital ESG, talento comprometido y usuarios fieles</strong> que valoran el propósito. En un sector donde los servicios técnicos tienden a igualarse, la autenticidad del compromiso social (avalado legalmente) es una ventaja difícil de imitar. Torres Hernández: la cultura organizacional como fuente de ventaja sustentable.</p>
+    </div>
+    <div class="vc-card">
+      <div class="vc-num">04</div>
+      <div class="vc-title">Resiliencia Financiera Estructural</div>
+      <p class="vc-desc">La <strong>deuda verde de 1,6 billones</strong>, la calificación S&P B+, y el respaldo de Millicom (grupo global con operaciones en 9 países de Latam) crean una base financiera que permite inversión contra-cíclica en infraestructura. Ningún competidor colombiano tiene acceso equivalente a capital internacional en condiciones similares.</p>
+    </div>
+  </div>
+
+  <div class="arg-box" style="border-color:var(--green);">
+    <div class="arg-label" style="color:var(--green);">⬧ Argumento Clave – Parte III</div>
+    <p class="arg-text">"Desde Mintzberg, la gerencia de Colombia Telecomunicaciones evidencia roles decisionales que convirtieron regulación y competencia en ventaja. La habilidad conceptual del liderazgo y la innovación BIC generaron una ventaja competitiva única: <strong>no solo conectan personas, construyen un país más inclusivo y sostenible</strong>. Sin esta gestión estratégica, Colombia no tendría el 5G ni la fibra líder actual."</p>
+  </div>
+
+</div>
+</div>
+
+<div class="sep"><div class="sep-line"></div><span class="sep-text">Reflexión</span><div class="sep-line"></div></div>
+
+<!-- ══════ PREGUNTAS ══════ -->
+<div class="section">
+  <div class="section-label">
+    <span class="section-num">PREGUNTAS DE PROFUNDIZACIÓN</span>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="section-title">REFLEXIÓN <em>CRÍTICA</em></h2>
+  <p class="section-intro">Análisis argumentativo de las cinco preguntas de clase desde la perspectiva de consultoría estratégica.</p>
+
+  <div class="q-grid">
+    <div class="q-card">
+      <div class="q-num">Q.01</div>
+      <div class="q-text">¿Habría crecido igual sin una gestión administrativa estratégica?</div>
+      <p class="q-ans"><strong>No.</strong> Sin la decisión administrativa de la fusión fija-móvil (2012), Movistar habría seguido siendo un operador móvil más sin escala nacional. Sin la apuesta en fibra (2018–2024), hoy no lideraría el mercado de internet fijo. Y sin la adopción BIC (2021), no habría accedido a capital verde ni a la credibilidad reputacional que hizo atractiva la OPA de Millicom. La gestión estratégica fue el catalizador que convirtió infraestructura heredada de Telecom en liderazgo de mercado.</p>
+    </div>
+    <div class="q-card">
+      <div class="q-num">Q.02</div>
+      <div class="q-text">¿Cuál decisión gerencial fue más determinante?</div>
+      <p class="q-ans">La <strong>adopción BIC en 2021</strong>, porque fue la decisión que más efectos en cadena generó: (1) diferenció la marca ante reguladores y usuarios, (2) habilitó financiamiento verde de 1,6 billones, (3) construyó la reputación que atrajo a Millicom, y (4) creó una cultura organizacional orientada a propósito que retiene talento. Fue a la vez una decisión legal, financiera, cultural y estratégica — raramente una sola decisión impacta tantas dimensiones simultáneamente.</p>
+    </div>
+    <div class="q-card">
+      <div class="q-num">Q.03</div>
+      <div class="q-text">¿Su estructura societaria favorece la sostenibilidad?</div>
+      <p class="q-ans"><strong>Sí, más que cualquier competidor.</strong> La triple estructura S.A. + E.S.P. + BIC crea capas complementarias: la S.A. provee disciplina de mercado, la E.S.P. garantiza continuidad del servicio público, y la BIC obliga legalmente a considerar bienestar colectivo. Esto crea un modelo donde la <em>sostenibilidad no depende de la voluntad del CEO de turno</em>, sino que está inscrita en los estatutos. Limitación: puede ralentizar decisiones en entornos donde la velocidad importa.</p>
+    </div>
+    <div class="q-card">
+      <div class="q-num">Q.04</div>
+      <div class="q-text">¿Qué riesgos administrativos enfrenta a futuro?</div>
+      <p class="q-ans"><strong>Cuatro riesgos críticos:</strong> (1) <strong>Integración Millicom-Tigo:</strong> fusiones de esta escala pueden generar pérdida de talento clave, choque de culturas y complejidad regulatoria. (2) <strong>Competencia de Claro:</strong> lidera el mercado móvil y tiene capacidad de inversión similar. (3) <strong>Regulación tarifaria:</strong> la CRC puede imponer restricciones en precios que compriman márgenes. (4) <strong>Transición tecnológica:</strong> la deuda verde asume que la fibra y 5G serán las tecnologías dominantes — cambios disruptivos (Starlink, LEO) podrían alterar el panorama.</p>
+    </div>
+    <div class="q-card full">
+      <div class="q-num">Q.05</div>
+      <div class="q-text">Si usted fuera gerente, ¿qué decisión estratégica tomaría hoy?</div>
+      <p class="q-ans">Implementaría una <strong>estrategia de plataforma de soberanía digital</strong> en tres frentes: (1) <em>Ecosistema Pyme Digital:</em> posicionar Movistar como el aliado tecnológico de las 2,5 millones de pymes colombianas con paquetes integrados de conectividad + cloud + ciberseguridad + IA, creando lock-in de alto valor y diversificando ingresos más allá de la conectividad básica. (2) <em>Deepening BIC:</em> convertir la calidad BIC en ventaja comercial tangible — crear el "Sello Movistar Conecta" para empresas clientes que demuestren impacto social positivo, creando comunidad y diferenciación. (3) <em>Red Rural 5G con MinTIC:</em> usar la infraestructura Unired para liderar la conectividad rural (zonas no atendidas), capturando subsidios gubernamentales y el segmento de mercado que Claro ignora, mientras se cumple el propósito BIC. Estas tres decisiones transformarían la empresa de operadora de red a <em>plataforma de desarrollo económico digital de Colombia.</em></p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ REFERENCIAS ══════ -->
+<div class="refs-section">
+<div class="section" style="padding-top:0; padding-bottom:0;">
+  <div class="section-label" style="margin-bottom:20px;">
+    <span class="section-num">REFERENCIAS BIBLIOGRÁFICAS</span>
+    <div class="section-line"></div>
+  </div>
+  <ul class="ref-list">
+    <li>Telefónica Colombia. (2025). <em>Informe de Gestión Responsable 2024 – Reporte BIC.</em> <a href="https://www.telefonica.co/wp-content/uploads/sites/4/2025/08/Informe-de-Gestion-Responsable_Reporte-Gestion-BIC-2024_COLTEL-SA-ESP-BIC_Telefonica-Movistar_VF.pdf" target="_blank">telefonica.co</a></li>
+    <li>Telefónica Colombia. (s.f.). <em>Nosotros – Telefónica Colombia.</em> <a href="https://www.telefonica.co/nosotros/telefonica-colombia/" target="_blank">telefonica.co/nosotros</a></li>
+    <li>Fitch Ratings. (2025). <em>Colombia Telecomunicaciones S.A. E.S.P. BIC – Calificaciones crediticias.</em> <a href="https://www.fitchratings.com/research/corporate-finance/colombia-telecomunicaciones-sa-esp-bic-07-05-2025" target="_blank">fitchratings.com</a></li>
+    <li>S&P Global Ratings. (2026). <em>Hechos relevantes post-venta Millicom.</em> <a href="https://www.telefonica.co/en/shareholders-and-investors/relevant-information/" target="_blank">telefonica.co/investors</a></li>
+    <li>Portafolio. (2024). <em>El fin de una era: la historia detrás de Telefónica Movistar en Colombia.</em> <a href="https://www.portafolio.co/negocios/empresas/el-fin-de-una-era-la-historia-detras-de-telefonica-movistar-en-colombia-626512" target="_blank">portafolio.co</a></li>
+    <li>Wikipedia. (2025). <em>Movistar (Colombia).</em> <a href="https://es.wikipedia.org/wiki/Movistar_(Colombia)" target="_blank">es.wikipedia.org</a> — Actualizado hace 6 días.</li>
+    <li>La República. (2024). <em>Telefónica Movistar registró ingresos por $1,6 billones en Q1 2024.</em> <a href="https://www.larepublica.co/empresas/resultados-empresariales-telefonica-movistar-primer-trimestre-de-2024-3862141" target="_blank">larepublica.co</a></li>
+    <li>La Nota. (2025). <em>Ranking 2025 sector telecomunicaciones de Colombia.</em> <a href="https://lanota.com/index.php/ranking-2025-sector-telecomunicaciones-de-colombia.html" target="_blank">lanota.com</a></li>
+  </ul>
+</div>
+</div>
+
+<!-- ══════ FOOTER ══════ -->
+<footer class="footer">
+  <div class="footer-brand">MOVISTAR · CO</div>
+  <div class="footer-info">
+    ESTUDIO DE CASO · ADMINISTRACIÓN DE EMPRESAS<br>
+    Universidad Cooperativa de Colombia · Villavicencio<br>
+    5° Semestre · Ingeniería de Sistemas · 2025
+  </div>
+  <div class="footer-tag">
+    Colombia Telecomunicaciones S.A. E.S.P. BIC<br>
+    NIT: 830.122.566-4 · Bogotá D.C.<br>
+    <span style="color:var(--blue);">Fecha límite presentación: 5 de marzo 2025</span>
+  </div>
+</footer>
+
+</body>
+</html>
